@@ -1,3 +1,4 @@
+```
 which psql
 psql --version
 sudo systemctl start postgresql
@@ -101,3 +102,4 @@ CREATE TABLE N33481_13_schema_lab1.N33481_13_table_i5_check (
 CREATE VIEW N33481_13_schema_lab1.N33481_13 AS
 SELECT stud_nationality, date_admission
 FROM N33481_13_schema_lab1.N33481_13_table_i5;
+```
