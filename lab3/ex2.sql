@@ -1,7 +1,5 @@
 -- 2.	Написать триггер, который будет выполнять действие из 1 пункта автоматически при вставке записи в исходную таблицу. Таким образом, чтобы агрегированная информация всегда была актуальна.
 
-DROP FUNCTION ex2_update_data_func CASCADE;
-
 CREATE OR REPLACE FUNCTION ex2_update_data_func() RETURNS TRIGGER AS
 $$ 
 DECLARE
