@@ -1,0 +1,8 @@
+\dp N33481_13_schema_lab4.players
+CREATE USER user1 WITH PASSWORD 'jw8s0F1';
+CREATE USER user2 WITH PASSWORD 'jw8s0F2';
+CREATE USER user3 WITH PASSWORD 'jw8s0F3';
+GRANT ALL PRIVILEGES ON N33481_13_schema_lab4.players TO user1;
+GRANT SELECT, INSERT, UPDATE ON N33481_13_schema_lab4.players TO user2;
+GRANT DELETE ON N33481_13_schema_lab4.players TO user3 WITH GRANT OPTION;
+\dp N33481_13_schema_lab4.players
