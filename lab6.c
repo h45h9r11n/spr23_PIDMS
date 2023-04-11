@@ -51,20 +51,13 @@ int main(int argc, char **argv)
 		printf("%s\n", query);
 		MYSQL_RES *result = mysql_store_result(con);
   	
-		if (result == NULL)
-		{
-			
+		if (result == NULL){
 			finish_with_error(con);
-		}
-
-		
+		}		
 		int num_fields = mysql_num_fields(result);
-
 		MYSQL_ROW row;
 		MYSQL_FIELD *field;
-
-		while ((row = mysql_fetch_row(result)))
-		{
+		while ((row = mysql_fetch_row(result))){
 			for(int i = 0; i < num_fields; i++){
 				if (i == 0)
 				{
@@ -82,7 +75,6 @@ int main(int argc, char **argv)
 		mysql_free_result(result);
 		mysql_close(con);
 	} else {
-	
 		MYSQL_STMT *stmt;
 		MYSQL_BIND ps_params[2];
 		int status;
@@ -93,12 +85,8 @@ int main(int argc, char **argv)
 		stmt = mysql_stmt_init(con);
 		status = mysql_stmt_prepare(stmt, query, strlen(query));
 		if (status != 0) err_exit("prepare stmt failed"); 
-		
-		int count = mysql_stmt_param_count(stmt);
-		
-		
+		int count = mysql_stmt_param_count(stmt);		
 		memset(ps_params, 0, sizeof(ps_params)*2);
-		
 		ps_params[0].buffer_type = MYSQL_TYPE_STRING;
 		ps_params[0].buffer = username;
 		ps_params[0].buffer_length = strlen(username);
@@ -113,7 +101,6 @@ int main(int argc, char **argv)
 		if (status != 0) err_exit("bind stmt select failed");
 		status = mysql_stmt_execute(stmt);
 		if (status != 0) err_exit("execute stmt insert failed");
-		
 		int numFields; 
 		char strName[100]; 
 		char strOpaque[100]; 
@@ -128,14 +115,11 @@ int main(int argc, char **argv)
 		my_bool isNull[3]; 
 
 		numFields = mysql_stmt_field_count(stmt);
-		
 		metaData = mysql_stmt_result_metadata(stmt); 
 		if (metaData == NULL) err_exit("failed to get metadata"); 
-
 		fields = mysql_fetch_fields(metaData); 
 		memset(bind,0,sizeof(MYSQL_BIND)*3);  
 	 
-
 		bind[0].buffer_type = fields[0].type; 
 		bind[0].buffer = strName; 
 		bind[0].buffer_length = 100;
@@ -147,14 +131,11 @@ int main(int argc, char **argv)
 		bind[1].buffer_length = 100;
 		bind[1].is_null = &isNull[1];
 		bind[1].length = &lenOpaque; 
-
-
 		result = mysql_stmt_bind_result(stmt, bind); 
 		if (result!=0) err_exit("bind result failed"); 
 
 		result = mysql_stmt_execute(stmt); 
 		if (result!=0) err_exit("execute select all failed"); 
-
 		row = 0; 
 		while(1){
 		row++; 
@@ -168,25 +149,12 @@ int main(int argc, char **argv)
 		    printf("error str is %s \n", mysql_error(con));
 		    break; 
 		}
-
 		strName[lenName]='\0'; 
 		strOpaque[lenOpaque]='\0'; 
 		printf("%s %s\n", strName, strOpaque); 
-		} 
-
+		}
     		mysql_free_result(metaData);
-		
-		
-		
 		mysql_stmt_close(stmt);
 	}
-	
-	
-	
-  	
-
 	exit(0);
-	
-	
-	
 }
